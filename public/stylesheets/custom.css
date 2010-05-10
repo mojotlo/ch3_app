@@ -2,14 +2,15 @@
 width: 710px; 
 } 
 body { 
-background: #cff; 
+background: #004869; 
 } 
+
 #header { 
 padding-top: 20px; 
 } 
+
 #header img { 
-padding: 1em; 
-background: #fff; 
+padding: 1em; ; 
 } 
 #content { 
 margin-top: 1em; 
