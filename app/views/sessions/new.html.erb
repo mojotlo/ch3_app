@@ -1,0 +1,17 @@
+<% form_for(:session, :url => sessions_path) do |f| %>
+<%= f.error_messages %> 
+
+	<div class="field">
+		<%=f.label :email %></br>
+		<%=f.text_field :email %>
+	</div>
+	<div class="field">
+		<%=f.label :password %></br>
+		<%=f.text_field :password %>
+	</div>
+	<div class="action">
+		<%=f.submit "Sign in" %>
+	</div>
+<%end%>
+	<%- link_to "sign in!", sessions_path %>
+	<p>New user?  <%- link_to "Signup!", signup_path %></p>

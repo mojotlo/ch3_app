@@ -25,11 +25,11 @@ describe User do
   end
   
   it "should require a name" do
-    no_name_user = User.new (@attr.merge(:name =>""))
+    no_name_user = User.new(@attr.merge(:name =>""))
     no_name_user.should_not be_valid
   end
   it "should require an email" do
-    no_name_user = User.new (@attr.merge(:email =>""))
+    no_name_user = User.new(@attr.merge(:email =>""))
     no_name_user.should_not be_valid
   end  
   
@@ -119,5 +119,22 @@ describe User do
         matching_user.should == @user
       end
     end
-  end      
+  end  
+  describe "remember me" do
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+    it "should have a remember me method" do
+      @user.should respond_to(:remember_me!)
+    end
+    
+    it "should set the remember token" do  
+      @user.should respond_to(:remember_token)
+    end
+    
+    it "should set the remember token" do
+      @user.remember_me!
+      @user.remember_token.should_not be_nil
+    end
+  end  
 end

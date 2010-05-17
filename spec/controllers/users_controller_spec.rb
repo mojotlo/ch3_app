@@ -15,7 +15,7 @@ describe UsersController do
     end
     it "should have a title" do
       get 'new'
-      response.should have_tag('title', /Sign up/)
+      response.should have_tag('title', /sign up/i)
     end
   end
   
@@ -82,5 +82,30 @@ describe UsersController do
       end
     end
   end
-    
+  describe "GET :new" do
+    it "should render the 'new' page" do
+      get :new
+      response.should be_success
+    end
+    it "should have a name field" do
+      get :new
+      response.should have_tag("input#user_name")
+    end
+    it "should have an email field" do
+      get :new
+      response.should have_tag("input#user_email")
+    end
+    it "should have a password field" do
+      get :new
+      response.should have_tag("input#user_password")
+    end
+    it "should have a password confirmation field" do
+      get :new
+      response.should have_tag("input#user_password_confirmation")
+    end
+    it "should have a submit button" do
+      get :new
+      response.should have_tag("input#user_submit")
+    end
+  end  
 end
