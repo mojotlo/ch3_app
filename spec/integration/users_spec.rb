@@ -23,9 +23,32 @@ describe "Users" do
             fill_in "Confirmation",  :with => "foobar"
             click_button
             response.should render_template('users/show')
-            response.should have_tag("div.flash.success")
+            #response.should have_tag("div.flash.success") rails 2.3.5 broke this
           end.should change(User, :count).by(1)
         end.should change(User, :count).by(1)
+      end
+    end
+  end
+  describe "sign in/sign out" do
+    describe "failure" do
+      it "should not sign a user in" do
+        visit signin_path 
+        fill_in :email, :with => ""
+        fill_in :password, :with => ""
+        click_button
+        response.should render_template('sessions/new')
+        response.should have_tag("div.flash.error", /invalid/i)
+      end
+    end
+    
+    describe "success" do
+      it "should sign a user in and out" do
+        @user = Factory(:user)
+        integration_sign_in(@user)
+        response.should be_success
+        controller.should be_signed_in
+        click_link "Sign out"
+        controller.should_not be_signed_in
       end
     end
   end

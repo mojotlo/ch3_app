@@ -17,6 +17,7 @@ end
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -25,6 +26,16 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+  def test_sign_in(user)
+    controller.current_user = user
+  end
+  def integration_sign_in(user)
+    visit signin_path
+    fill_in :email, :with => user.email
+    fill_in :password, :with=>user.password
+    click_button
+  end
+  
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
